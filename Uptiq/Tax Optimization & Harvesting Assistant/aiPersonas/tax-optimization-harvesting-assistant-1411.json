@@ -1,0 +1,144 @@
+{
+  "_id": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "inferenceEngine": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "integrationId": "tax-optimization-harvesting-assistant-1411",
+  "integrations": {},
+  "intentClassification": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "name": "Tax Optimization & Harvesting Assistant",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "status": "Active",
+  "useAsChatbot": true,
+  "variables": {
+    "secrets": [
+      {
+        "_id": "abd6295a-784e-4786-9104-1398fddd3040",
+        "name": "STOCK_API_KEY",
+        "value": "",
+        "type": "string",
+        "secured": true
+      }
+    ],
+    "agent": [
+      "documentId"
+    ]
+  },
+  "miniAgentIds": [
+    "650dbb68-a185-4ed2-bafb-aa9f2638bc8f",
+    "7a79fbfc-d4bc-43be-834e-91abc467a5f0",
+    "5608f217-2ad4-4ef3-bc37-c2b223cbcc93",
+    "8bf762b8-3e12-42a5-99d6-934efae828e1"
+  ],
+  "miniAgents": [
+    {
+      "_id": "8bf762b8-3e12-42a5-99d6-934efae828e1",
+      "integrationId": "recommendation-generation-4608",
+      "intents": [
+        {
+          "_id": "generate-tax-optimization-strategies-4608",
+          "name": "Generate Tax Optimization Strategies",
+          "description": "Offers personalized tax optimization strategies based on the investor's financial profile and goals.",
+          "examples": [
+            "What tax optimization strategies do you recommend for my portfolio?",
+            "Can you suggest ways to minimize my tax liability?",
+            "How can I optimize my investments for better tax efficiency?"
+          ],
+          "flowType": "Workflow",
+          "workflowId": "a1630974-9a48-45c2-b5d5-c922ec9737b0"
+        }
+      ],
+      "name": "Recommendation Generation",
+      "scope": "Provides actionable tax optimization strategies tailored to the investor's profile, including personalized advice on asset allocation, timing of transactions, and tax-saving opportunities.",
+      "miniAgentId": "8bf762b8-3e12-42a5-99d6-934efae828e1"
+    },
+    {
+      "_id": "5608f217-2ad4-4ef3-bc37-c2b223cbcc93",
+      "integrationId": "scenario-simulation-2092",
+      "intents": [
+        {
+          "_id": "simulate-tax-scenarios-2092",
+          "name": "Simulate Tax Scenarios",
+          "description": "Projects the tax outcomes of different investment strategies to help investors make informed decisions.",
+          "examples": [
+            "What are the tax implications if I sell my stocks now?",
+            "Can you simulate the tax outcome of buying more bonds?",
+            "How will my taxes change if I adjust my portfolio allocation?"
+          ],
+          "flowType": "Workflow",
+          "workflowId": "4fbca8ea-3a7a-45e1-b630-f1b5b8624c1a"
+        }
+      ],
+      "name": "Scenario Simulation",
+      "scope": "Models various tax scenarios to project outcomes of different investment strategies, including tax implications of asset sales, purchases, and other financial decisions.",
+      "miniAgentId": "5608f217-2ad4-4ef3-bc37-c2b223cbcc93"
+    },
+    {
+      "_id": "7a79fbfc-d4bc-43be-834e-91abc467a5f0",
+      "integrationId": "tax-compliance-9270",
+      "intents": [
+        {
+          "_id": "verify-compliance-9270",
+          "name": "Verify Compliance",
+          "description": "Checks if proposed transactions adhere to tax laws and regulations, such as wash sale rules.",
+          "examples": [
+            "Is this transaction compliant with current tax laws?",
+            "Can you verify if my investment strategy follows tax regulations?",
+            "Does selling this stock violate any tax rules?"
+          ],
+          "flowType": "Workflow",
+          "workflowId": "04fe19b7-b651-4ab8-bee6-73c710b204a7"
+        }
+      ],
+      "name": "Tax Compliance",
+      "scope": "Ensures that all proposed investment transactions and strategies comply with current tax regulations, including checking for wash sale rules and other tax implications.",
+      "miniAgentId": "7a79fbfc-d4bc-43be-834e-91abc467a5f0"
+    },
+    {
+      "_id": "650dbb68-a185-4ed2-bafb-aa9f2638bc8f",
+      "integrationId": "portfolio-analysis-4411",
+      "intents": [
+        {
+          "_id": "identify-tax-loss-opportunities-4411",
+          "name": "Identify Tax-Loss Opportunities",
+          "description": "Analyzes portfolios to find assets that can be sold at a loss to offset gains, thereby reducing tax liability.",
+          "examples": [
+            "Which assets in my portfolio can be sold for tax-loss harvesting?",
+            "Can you identify any underperforming stocks for tax purposes?",
+            "What are the potential tax-loss harvesting opportunities in my investments?"
+          ],
+          "flowType": "Workflow",
+          "workflowId": "46175023-aca1-42ca-bc87-4ce9e6dc8027"
+        }
+      ],
+      "name": "Portfolio Analysis",
+      "scope": "Evaluates investment portfolios to identify tax-loss harvesting opportunities, including analyzing asset performance, identifying underperforming assets, and suggesting potential tax-saving moves.",
+      "miniAgentId": "650dbb68-a185-4ed2-bafb-aa9f2638bc8f"
+    }
+  ],
+  "rags": [],
+  "intentWorkflows": [
+    {
+      "_id": "04fe19b7-b651-4ab8-bee6-73c710b204a7",
+      "integrationId": "verify-compliance-3771",
+      "name": "Workflow for Verify Compliance"
+    },
+    {
+      "_id": "46175023-aca1-42ca-bc87-4ce9e6dc8027",
+      "integrationId": "identify-tax-loss-opportunities-0953",
+      "name": "Workflow for Identify Tax-Loss Opportunities"
+    },
+    {
+      "_id": "4fbca8ea-3a7a-45e1-b630-f1b5b8624c1a",
+      "integrationId": "simulate-tax-scenarios-6295",
+      "name": "Workflow for Simulate Tax Scenarios"
+    },
+    {
+      "_id": "a1630974-9a48-45c2-b5d5-c922ec9737b0",
+      "integrationId": "generate-tax-optimization-strategies-8585",
+      "name": "Workflow for Generate Tax Optimization Strategies"
+    }
+  ]
+}

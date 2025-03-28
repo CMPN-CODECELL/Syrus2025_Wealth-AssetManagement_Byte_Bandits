@@ -1,0 +1,7 @@
+{
+  "_id": "f5565a9c-4129-4047-a11e-20cdd7120ca1",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "code": "// User Asset Input\nconst main = () => {\n    let assets = input?.data?.userInput || [];\n    assets = Array.isArray(assets) ? assets : [];\n\n    return {\n        options: assets.map(a => ({\n            label: a.symbol,\n            value: a.symbol,\n            subTitle: `Sale Price: ${a.salePrice} | Purchase Date: ${a.purchaseDate}`\n        })),\n        type: \"cardSelect\",\n        subTitleField: \"subTitle\"\n    };\n};\n\nmain();\n",
+  "name": "inputToStructuredData",
+  "status": "Active"
+}

@@ -1,0 +1,78 @@
+{
+  "_id": "453e51f8-cfb6-4a20-9541-b134c7bff21d",
+  "name": "Portfolio Validation Rules",
+  "status": "Active",
+  "facts": [
+    {
+      "_id": "9fe82441-eea2-44e7-9f3c-337e5fdb7b66",
+      "name": "stockSymbol",
+      "type": "String"
+    },
+    {
+      "_id": "4e73a393-b0b7-4074-b69e-7ca64defa15b",
+      "name": "investmentAmount",
+      "type": "Number"
+    }
+  ],
+  "decisions": [
+    {
+      "_id": "7cfb66c8-e812-45a1-9f9e-b10442c526ab",
+      "name": " Validate Portfolio Input",
+      "conditions": {
+        "all": [
+          {
+            "fact": "9fe82441-eea2-44e7-9f3c-337e5fdb7b66",
+            "operator": "notEqual",
+            "value": "\"\""
+          },
+          {
+            "fact": "4e73a393-b0b7-4074-b69e-7ca64defa15b",
+            "operator": "greaterThan",
+            "value": 0
+          }
+        ]
+      },
+      "output": {
+        "params": [
+          {
+            "type": "value",
+            "key": "portfolioStatus",
+            "value": "\"valid\""
+          },
+          {
+            "type": "value",
+            "key": "investmentCategory",
+            "value": "\"processed\""
+          }
+        ]
+      }
+    },
+    {
+      "_id": "003bad9d-0b06-4194-82ba-435a232e0666",
+      "name": "else ",
+      "conditions": {
+        "any": [
+          {
+            "fact": "9fe82441-eea2-44e7-9f3c-337e5fdb7b66",
+            "operator": "equal",
+            "value": "\"\""
+          },
+          {
+            "fact": "4e73a393-b0b7-4074-b69e-7ca64defa15b",
+            "operator": "equal",
+            "value": 0
+          }
+        ]
+      },
+      "output": {
+        "params": [
+          {
+            "type": "value",
+            "key": "portfolioStatus",
+            "value": "\"invailid\""
+          }
+        ]
+      }
+    }
+  ]
+}
