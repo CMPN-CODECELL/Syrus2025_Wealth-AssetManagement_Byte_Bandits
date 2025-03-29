@@ -1,0 +1,24 @@
+{
+  "_id": "4fbca8ea-3a7a-45e1-b630-f1b5b8624c1a",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "simulate-tax-scenarios-6295",
+  "name": "Workflow for Simulate Tax Scenarios",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "startTaskId": "2b172ba7-c683-4229-8317-fff0ab13651e",
+  "status": "Active",
+  "tasks": [
+    {
+      "_id": "2b172ba7-c683-4229-8317-fff0ab13651e",
+      "transitions": [],
+      "type": "Display",
+      "config": {
+        "name": "Display",
+        "description": "Display the response to the user",
+        "type": "text",
+        "text": "Hi there! Intent $input.intent has been matched"
+      }
+    }
+  ],
+  "type": "Conversational",
+  "version": "latest"
+}

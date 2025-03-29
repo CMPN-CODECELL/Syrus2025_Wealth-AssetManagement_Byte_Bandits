@@ -1,0 +1,27 @@
+{
+  "_id": "7a79fbfc-d4bc-43be-834e-91abc467a5f0",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "tax-compliance-9270",
+  "intentClassification": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "intents": [
+    {
+      "_id": "verify-compliance-9270",
+      "name": "Verify Compliance",
+      "description": "Checks if proposed transactions adhere to tax laws and regulations, such as wash sale rules.",
+      "examples": [
+        "Is this transaction compliant with current tax laws?",
+        "Can you verify if my investment strategy follows tax regulations?",
+        "Does selling this stock violate any tax rules?"
+      ],
+      "flowType": "Workflow",
+      "workflowId": "04fe19b7-b651-4ab8-bee6-73c710b204a7"
+    }
+  ],
+  "name": "Tax Compliance",
+  "primaryWorkflowId": "365e1cf6-9c49-4e1e-ae3d-e3c74ec0b915",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "scope": "Ensures that all proposed investment transactions and strategies comply with current tax regulations, including checking for wash sale rules and other tax implications.",
+  "status": "Active"
+}

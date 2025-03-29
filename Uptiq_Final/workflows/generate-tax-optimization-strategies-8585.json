@@ -1,0 +1,24 @@
+{
+  "_id": "a1630974-9a48-45c2-b5d5-c922ec9737b0",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "generate-tax-optimization-strategies-8585",
+  "name": "Workflow for Generate Tax Optimization Strategies",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "startTaskId": "eae924f2-7a22-406a-9bc5-a9db5109e7af",
+  "status": "Active",
+  "tasks": [
+    {
+      "_id": "eae924f2-7a22-406a-9bc5-a9db5109e7af",
+      "transitions": [],
+      "type": "Display",
+      "config": {
+        "name": "Display",
+        "description": "Display the response to the user",
+        "type": "text",
+        "text": "Hi there! Intent $input.intent has been matched"
+      }
+    }
+  ],
+  "type": "Conversational",
+  "version": "latest"
+}

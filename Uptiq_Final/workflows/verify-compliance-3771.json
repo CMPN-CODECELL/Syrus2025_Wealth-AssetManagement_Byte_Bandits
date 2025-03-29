@@ -1,0 +1,416 @@
+{
+  "_id": "04fe19b7-b651-4ab8-bee6-73c710b204a7",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "verify-compliance-3771",
+  "name": "Workflow for Verify Compliance",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "startTaskId": "1743223476173",
+  "status": "Active",
+  "tasks": [
+    {
+      "_id": "1743223476173",
+      "type": "Input",
+      "config": {
+        "description": "Take user input",
+        "name": "Input",
+        "type": "string"
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743223476173-1743223733785",
+          "nextTask": "1743223733785"
+        }
+      ]
+    },
+    {
+      "_id": "1743223733785",
+      "type": "JSFunction",
+      "config": {
+        "description": "Execute JavaScript code",
+        "name": "JavaScript",
+        "snippetId": "a7c3b695-5251-4793-92dd-d68cc1ad8a48"
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743223733785-1743224167865",
+          "nextTask": "1743224167865"
+        }
+      ]
+    },
+    {
+      "_id": "1743224167865",
+      "type": "APICall",
+      "config": {
+        "description": "Make an API call",
+        "name": "AlphaVantage_Price_Lookup",
+        "url": "https://www.alphavantage.co/query",
+        "data": "",
+        "dataFormat": "raw",
+        "rawDataFormatType": "text",
+        "headers": [],
+        "params": [
+          {
+            "key": "function",
+            "value": "TIME_SERIES_DAILY"
+          },
+          {
+            "key": "symbol",
+            "value": "$transaction.asset"
+          },
+          {
+            "key": "outputsize",
+            "value": "full"
+          },
+          {
+            "key": "apikey",
+            "value": "secrets.ALPHA_VANTAGE_KEY"
+          }
+        ],
+        "method": "GET"
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743224167865-1743224775833",
+          "nextTask": "1743224775833"
+        }
+      ]
+    },
+    {
+      "_id": "1743224775833",
+      "type": "JSFunction",
+      "config": {
+        "description": "Execute JavaScript code",
+        "name": "JavaScript (1)",
+        "snippetId": "dfc81117-bd73-437f-8600-28903c94fe2d"
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743224775833-1743225507561",
+          "nextTask": "1743225507561"
+        }
+      ]
+    },
+    {
+      "_id": "1743225507561",
+      "type": "Filter",
+      "config": {
+        "description": "Filter data from array",
+        "name": "Filter",
+        "pathToArray": "$input.data.transactions",
+        "rule": [
+          {
+            "type": "string",
+            "path": "compliance.status",
+            "operator": "equal",
+            "value": "APPROVED"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743225507561-1743226343842",
+          "nextTask": "1743226343842"
+        }
+      ],
+      "globalVariables": [
+        {
+          "name": "approved_transactions_count",
+          "referencePath": "$matched.length"
+        },
+        {
+          "name": "wash_sale_violations_count",
+          "referencePath": "$unmatched.length"
+        },
+        {
+          "name": "processing_date",
+          "referencePath": "new Date().toISOString()"
+        }
+      ]
+    },
+    {
+      "_id": "1743226343842",
+      "type": "DatabaseWrite",
+      "config": {
+        "description": "Write data in table",
+        "name": "Table Write",
+        "collectionConfigId": "ccfa89bf-b1cb-4036-9e88-87f0f70443db",
+        "operation": "insertMany",
+        "data": "[\n      {\n        \"_id\": \"0\",\n        \"amount\": 100,\n        \"asset\": \"$matched.asset\",\n        \"client_id\": \"$context.client_id\"\n      }\n    ]"
+      },
+      "transitions": [
+        {
+          "name": "Default",
+          "_id": "1743226343842-1743227605014",
+          "nextTask": "1743227605014"
+        }
+      ],
+      "globalVariables": [
+        {
+          "name": "name",
+          "referencePath": "inserted_count"
+        },
+        {
+          "name": "value",
+          "referencePath": "$output.insertedCount"
+        },
+        {
+          "name": "name",
+          "referencePath": "last_operation"
+        },
+        {
+          "name": "value",
+          "referencePath": "new Date().toISOString()"
+        }
+      ]
+    },
+    {
+      "_id": "1743227605014",
+      "type": "Display",
+      "config": {
+        "name": "Display",
+        "description": "Show data",
+        "type": "text",
+        "text": "<p>{</p><p>  \"status\": \"completed\",</p><p>  \"timestamp\": \"2024-03-29T18:45:22Z\",</p><p>  \"results\": {</p><p>    \"approved_transactions\": {</p><p>      \"count\": 3,</p><p>      \"sample\": [</p><p>        {</p><p>          \"asset\": \"AAPL\",</p><p>          \"client_id\": \"client_789\",</p><p>          \"sale_date\": \"2024-06-15\",</p><p>          \"gain_loss\": 142.50,</p><p>          \"tax_status\": \"CLEAN\"</p><p>        }</p><p>      ],</p><p>      \"database_result\": {</p><p>        \"insertedCount\": 3,</p><p>        \"insertedIds\": [\"65f8a1b2\", \"65f8a1b3\", \"65f8a1b4\"]</p><p>      }</p><p>    },</p><p>    \"violations\": {</p><p>      \"count\": 1,</p><p>      \"sample\": [</p><p>        {</p><p>          \"asset\": \"TSLA\",</p><p>          \"issue\": \"WASH_SALE\",</p><p>          \"purchase_date\": \"2024-06-01\",</p><p>          \"sale_date\": \"2024-06-10\",</p><p>          \"tax_impact\": -320.75</p><p>        }</p><p>      ],</p><p>      \"notifications_sent\": {</p><p>        \"in_app\": [\"trader_123\"],</p><p>        \"email\": [\"compliance@firm.com\"]</p><p>      }</p><p>    }</p><p>  },</p><p>  \"audit_trail\": {</p><p>    \"workflow_version\": \"v2.1\",</p><p>    \"execution_time_ms\": 1245,</p><p>    \"nodes_executed\": [</p><p>      \"input_validation\",</p><p>      \"tax_api_check\",</p><p>      \"compliance_filter\",</p><p>      \"portfolio_update\",</p><p>      \"violation_alert\"</p><p>    ]</p><p>  }</p><p>}</p>",
+        "rawText": "{\n\n  \"status\": \"completed\",\n\n  \"timestamp\": \"2024-03-29T18:45:22Z\",\n\n  \"results\": {\n\n    \"approved_transactions\": {\n\n      \"count\": 3,\n\n      \"sample\": [\n\n        {\n\n          \"asset\": \"AAPL\",\n\n          \"client_id\": \"client_789\",\n\n          \"sale_date\": \"2024-06-15\",\n\n          \"gain_loss\": 142.50,\n\n          \"tax_status\": \"CLEAN\"\n\n        }\n\n      ],\n\n      \"database_result\": {\n\n        \"insertedCount\": 3,\n\n        \"insertedIds\": [\"65f8a1b2\", \"65f8a1b3\", \"65f8a1b4\"]\n\n      }\n\n    },\n\n    \"violations\": {\n\n      \"count\": 1,\n\n      \"sample\": [\n\n        {\n\n          \"asset\": \"TSLA\",\n\n          \"issue\": \"WASH_SALE\",\n\n          \"purchase_date\": \"2024-06-01\",\n\n          \"sale_date\": \"2024-06-10\",\n\n          \"tax_impact\": -320.75\n\n        }\n\n      ],\n\n      \"notifications_sent\": {\n\n        \"in_app\": [\"trader_123\"],\n\n        \"email\": [\"compliance@firm.com\"]\n\n      }\n\n    }\n\n  },\n\n  \"audit_trail\": {\n\n    \"workflow_version\": \"v2.1\",\n\n    \"execution_time_ms\": 1245,\n\n    \"nodes_executed\": [\n\n      \"input_validation\",\n\n      \"tax_api_check\",\n\n      \"compliance_filter\",\n\n      \"portfolio_update\",\n\n      \"violation_alert\"\n\n    ]\n\n  }\n\n}",
+        "formatVariables": []
+      },
+      "transitions": []
+    }
+  ],
+  "type": "Conversational",
+  "version": "latest",
+  "reactflow": {
+    "viewport": {
+      "x": -1659.5688266396255,
+      "y": -124.43928150202424,
+      "zoom": 0.7476722541338643
+    },
+    "nodes": [
+      {
+        "id": "0",
+        "type": "Start",
+        "position": {
+          "x": 360,
+          "y": 400
+        },
+        "data": {},
+        "deletable": false,
+        "measured": {
+          "width": 320,
+          "height": 176
+        },
+        "selected": false
+      },
+      {
+        "position": {
+          "x": 771,
+          "y": 443
+        },
+        "type": "Input",
+        "id": "1743223476173",
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "position": {
+          "x": 1163.5762595652875,
+          "y": 443
+        },
+        "type": "JSFunction",
+        "id": "1743223733785",
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "position": {
+          "x": 1558.171052985276,
+          "y": 443
+        },
+        "type": "APICall",
+        "id": "1743224167865",
+        "data": {},
+        "measured": {
+          "width": 283,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "position": {
+          "x": 1998.914544760261,
+          "y": 443
+        },
+        "type": "JSFunction",
+        "id": "1743224775833",
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "position": {
+          "x": 2408.6431809503265,
+          "y": 443
+        },
+        "type": "Filter",
+        "id": "1743225507561",
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "position": {
+          "x": 2819.1859085701954,
+          "y": 443
+        },
+        "type": "DatabaseWrite",
+        "id": "1743226343842",
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "1743227605014",
+        "type": "Display",
+        "position": {
+          "x": 3165.76214193162,
+          "y": 443
+        },
+        "data": {},
+        "measured": {
+          "width": 260,
+          "height": 78
+        },
+        "selected": false,
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "0-1743223476173",
+        "type": "Start",
+        "source": "0",
+        "target": "1743223476173",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "0-source-1",
+        "targetHandle": "1743223476173-target-1",
+        "selected": false
+      },
+      {
+        "type": "Transition",
+        "id": "1743223476173-1743223733785",
+        "source": "1743223476173",
+        "target": "1743223733785",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743223476173-source-1",
+        "targetHandle": "1743223733785-target-1",
+        "selected": false
+      },
+      {
+        "type": "Transition",
+        "id": "1743223733785-1743224167865",
+        "source": "1743223733785",
+        "target": "1743224167865",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743223733785-source-1",
+        "targetHandle": "1743224167865-target-1",
+        "selected": false
+      },
+      {
+        "type": "Transition",
+        "id": "1743224167865-1743224775833",
+        "source": "1743224167865",
+        "target": "1743224775833",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743224167865-source-1",
+        "targetHandle": "1743224775833-target-1",
+        "selected": false
+      },
+      {
+        "type": "Transition",
+        "id": "1743224775833-1743225507561",
+        "source": "1743224775833",
+        "target": "1743225507561",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743224775833-source-1",
+        "targetHandle": "1743225507561-target-1",
+        "selected": false
+      },
+      {
+        "type": "Transition",
+        "id": "1743225507561-1743226343842",
+        "source": "1743225507561",
+        "target": "1743226343842",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743225507561-source-1",
+        "targetHandle": "1743226343842-target-1",
+        "selected": false
+      },
+      {
+        "id": "1743226343842-1743227605014",
+        "source": "1743226343842",
+        "target": "1743227605014",
+        "type": "Transition",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        },
+        "sourceHandle": "1743226343842-source-1",
+        "targetHandle": "1743227605014-target-1",
+        "selected": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_id": "ccfa89bf-b1cb-4036-9e88-87f0f70443db",
+  "accountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "appId": "default-app-for-account-f7383dae-50f9-4420-84b6-e56268bb0738",
+  "createdAt": "2025-03-29T05:33:07.383Z",
+  "createdBy": "user-53ae5646-6e17-4087-ae00-50ec852076e3",
+  "name": "Write_Approved_Trades",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "status": "available",
+  "updatedAt": "2025-03-29T05:33:07.383Z",
+  "updatedBy": "user-53ae5646-6e17-4087-ae00-50ec852076e3"
+}

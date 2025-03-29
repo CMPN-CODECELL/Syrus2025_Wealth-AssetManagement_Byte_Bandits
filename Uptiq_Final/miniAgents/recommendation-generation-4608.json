@@ -1,0 +1,27 @@
+{
+  "_id": "8bf762b8-3e12-42a5-99d6-934efae828e1",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "recommendation-generation-4608",
+  "intentClassification": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "intents": [
+    {
+      "_id": "generate-tax-optimization-strategies-4608",
+      "name": "Generate Tax Optimization Strategies",
+      "description": "Offers personalized tax optimization strategies based on the investor's financial profile and goals.",
+      "examples": [
+        "What tax optimization strategies do you recommend for my portfolio?",
+        "Can you suggest ways to minimize my tax liability?",
+        "How can I optimize my investments for better tax efficiency?"
+      ],
+      "flowType": "Workflow",
+      "workflowId": "a1630974-9a48-45c2-b5d5-c922ec9737b0"
+    }
+  ],
+  "name": "Recommendation Generation",
+  "primaryWorkflowId": "0ee9521a-dba2-487d-9f03-2a0bb6ace0b9",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "scope": "Provides actionable tax optimization strategies tailored to the investor's profile, including personalized advice on asset allocation, timing of transactions, and tax-saving opportunities.",
+  "status": "Active"
+}

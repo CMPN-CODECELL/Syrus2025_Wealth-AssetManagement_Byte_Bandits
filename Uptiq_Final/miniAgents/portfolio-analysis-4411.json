@@ -1,0 +1,27 @@
+{
+  "_id": "650dbb68-a185-4ed2-bafb-aa9f2638bc8f",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "portfolio-analysis-4411",
+  "intentClassification": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "intents": [
+    {
+      "_id": "identify-tax-loss-opportunities-4411",
+      "name": "Identify Tax-Loss Opportunities",
+      "description": "Analyzes portfolios to find assets that can be sold at a loss to offset gains, thereby reducing tax liability.",
+      "examples": [
+        "Which assets in my portfolio can be sold for tax-loss harvesting?",
+        "Can you identify any underperforming stocks for tax purposes?",
+        "What are the potential tax-loss harvesting opportunities in my investments?"
+      ],
+      "flowType": "Workflow",
+      "workflowId": "46175023-aca1-42ca-bc87-4ce9e6dc8027"
+    }
+  ],
+  "name": "Portfolio Analysis",
+  "primaryWorkflowId": "6e6b2386-fc4c-45f2-a19f-ccf8de0d95f7",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "scope": "Evaluates investment portfolios to identify tax-loss harvesting opportunities, including analyzing asset performance, identifying underperforming assets, and suggesting potential tax-saving moves.",
+  "status": "Active"
+}

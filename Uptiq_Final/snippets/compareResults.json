@@ -1,0 +1,7 @@
+{
+  "_id": "21c98681-1be5-4a56-a8c3-569bc2aba9d5",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "code": "function main(input) {\n    let investmentPrice = input.investmentPrice;\n    let marketPrice = input.marketPrice;\n    let result = {};\n\n    let profit_or_loss = marketPrice - investmentPrice;\n\n    if (profit_or_loss > 0) {\n        result.status = \"Profit\";\n        result.amount = profit_or_loss;\n    } else if (profit_or_loss < 0) {\n        result.status = \"Loss\";\n        result.amount = Math.abs(profit_or_loss);\n    } else {\n        result.status = \"No Change\";\n        result.amount = 0;\n    }\n\n    return result;\n}\n",
+  "name": "compareResults",
+  "status": "Active"
+}

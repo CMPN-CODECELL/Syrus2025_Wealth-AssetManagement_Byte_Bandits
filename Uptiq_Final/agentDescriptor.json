@@ -1,0 +1,104 @@
+{
+  "aiPersonaIntegrationId": "tax-optimization-harvesting-assistant-1411",
+  "version": "2.0.0",
+  "description": "AI Agent tax-optimization-harvesting-assistant-1411 package version 2.0.0",
+  "data": {
+    "workflows": [
+      [
+        "workflows",
+        "identify-tax-loss-opportunities-0953.json"
+      ],
+      [
+        "workflows",
+        "ma-portfolio-analysis-4411-primary-workflow-for-portfolio-analysis.json"
+      ],
+      [
+        "workflows",
+        "verify-compliance-3771.json"
+      ],
+      [
+        "workflows",
+        "ma-tax-compliance-9270-primary-workflow-for-tax-compliance.json"
+      ],
+      [
+        "workflows",
+        "simulate-tax-scenarios-6295.json"
+      ],
+      [
+        "workflows",
+        "ma-scenario-simulation-2092-primary-workflow-for-scenario-simulation.json"
+      ],
+      [
+        "workflows",
+        "generate-tax-optimization-strategies-8585.json"
+      ],
+      [
+        "workflows",
+        "ma-recommendation-generation-4608-primary-workflow-for-recommendation-generation.json"
+      ]
+    ],
+    "rulesets": [
+      [
+        "rulesets",
+        "Portfolio Validation Rules.json"
+      ]
+    ],
+    "snippets": [
+      [
+        "snippets",
+        "compareResults.json"
+      ],
+      [
+        "snippets",
+        "Input Validation.json"
+      ],
+      [
+        "snippets",
+        "post api validation.json"
+      ]
+    ],
+    "models": [
+      [
+        "models",
+        "azure-gpt-4o-mini.json"
+      ]
+    ],
+    "miniAgents": [
+      [
+        "miniAgents",
+        "portfolio-analysis-4411.json"
+      ],
+      [
+        "miniAgents",
+        "tax-compliance-9270.json"
+      ],
+      [
+        "miniAgents",
+        "scenario-simulation-2092.json"
+      ],
+      [
+        "miniAgents",
+        "recommendation-generation-4608.json"
+      ]
+    ],
+    "collectionConfigs": [
+      [
+        "collectionConfigs",
+        "Write_Approved_Trades",
+        "config.json"
+      ]
+    ],
+    "deploymentDependencyCollectionConfigs": [
+      [
+        "deploymentDependencyCollectionConfigs",
+        "Write_Approved_Trades.json"
+      ]
+    ],
+    "aiPersonas": [
+      [
+        "aiPersonas",
+        "tax-optimization-harvesting-assistant-1411.json"
+      ]
+    ]
+  }
+}

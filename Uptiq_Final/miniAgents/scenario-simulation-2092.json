@@ -1,0 +1,27 @@
+{
+  "_id": "5608f217-2ad4-4ef3-bc37-c2b223cbcc93",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "scenario-simulation-2092",
+  "intentClassification": {
+    "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b"
+  },
+  "intents": [
+    {
+      "_id": "simulate-tax-scenarios-2092",
+      "name": "Simulate Tax Scenarios",
+      "description": "Projects the tax outcomes of different investment strategies to help investors make informed decisions.",
+      "examples": [
+        "What are the tax implications if I sell my stocks now?",
+        "Can you simulate the tax outcome of buying more bonds?",
+        "How will my taxes change if I adjust my portfolio allocation?"
+      ],
+      "flowType": "Workflow",
+      "workflowId": "4fbca8ea-3a7a-45e1-b630-f1b5b8624c1a"
+    }
+  ],
+  "name": "Scenario Simulation",
+  "primaryWorkflowId": "b749bfaa-6ea7-4540-9b36-b184b1bf978b",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "scope": "Models various tax scenarios to project outcomes of different investment strategies, including tax implications of asset sales, purchases, and other financial decisions.",
+  "status": "Active"
+}

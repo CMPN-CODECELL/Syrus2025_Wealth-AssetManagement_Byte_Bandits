@@ -1,0 +1,299 @@
+{
+  "_id": "b749bfaa-6ea7-4540-9b36-b184b1bf978b",
+  "aiPersonaId": "5cefb5e0-1663-431f-91de-146273e752a4",
+  "integrationId": "ma-scenario-simulation-2092-primary-workflow-for-scenario-simulation",
+  "isMiniAgentPrimaryWorkflow": true,
+  "name": "Primary Workflow for Scenario Simulation",
+  "publisherAccountId": "f7383dae-50f9-4420-84b6-e56268bb0738",
+  "startTaskId": "2b0f874b-25ab-4e6b-8915-bcfc673a1641",
+  "status": "Active",
+  "tasks": [
+    {
+      "_id": "2b0f874b-25ab-4e6b-8915-bcfc673a1641",
+      "type": "PassThrough",
+      "config": {
+        "name": "Pass Through",
+        "description": "Pass through the input to the output"
+      },
+      "transitions": [
+        {
+          "_id": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9-2b0f874b-25ab-4e6b-8915-bcfc673a1641",
+          "nextTask": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9",
+          "name": "If query doesnt exists",
+          "rules": [
+            {
+              "type": "any",
+              "operator": "notExists",
+              "path": "$output.query"
+            }
+          ]
+        },
+        {
+          "_id": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a-2b0f874b-25ab-4e6b-8915-bcfc673a1641",
+          "nextTask": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a",
+          "name": "If intents are already classified",
+          "rules": [
+            {
+              "type": "any",
+              "operator": "exists",
+              "path": "$output.intents"
+            },
+            {
+              "type": "any",
+              "operator": "exists",
+              "path": "$output.query"
+            }
+          ]
+        },
+        {
+          "_id": "2b0f874b-25ab-4e6b-8915-bcfc673a1641-c74a4ad5-7913-43be-9286-c0cd6bc35aff",
+          "name": "If query exists",
+          "nextTask": "c74a4ad5-7913-43be-9286-c0cd6bc35aff",
+          "rules": [
+            {
+              "type": "any",
+              "operator": "exists",
+              "path": "$output.query"
+            },
+            {
+              "type": "any",
+              "operator": "notExists",
+              "path": "$output.intents"
+            }
+          ]
+        }
+      ],
+      "globalVariables": [
+        {
+          "name": "query",
+          "referencePath": "$input.query"
+        },
+        {
+          "name": "rawQuery",
+          "referencePath": "$input.rawQuery"
+        },
+        {
+          "name": "conversationId",
+          "referencePath": "$input.conversationId"
+        }
+      ]
+    },
+    {
+      "_id": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9",
+      "type": "Input",
+      "config": {
+        "name": "User Input",
+        "description": "Get user input",
+        "type": "string"
+      },
+      "transitions": [
+        {
+          "_id": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9-c74a4ad5-7913-43be-9286-c0cd6bc35aff",
+          "name": "Default",
+          "nextTask": "c74a4ad5-7913-43be-9286-c0cd6bc35aff"
+        }
+      ],
+      "globalVariables": [
+        {
+          "name": "query",
+          "referencePath": "$output.userInput"
+        },
+        {
+          "name": "rawQuery",
+          "referencePath": "$output.userInput"
+        },
+        {
+          "name": "selfLoopMiniAgent",
+          "referencePath": "true"
+        }
+      ]
+    },
+    {
+      "_id": "c74a4ad5-7913-43be-9286-c0cd6bc35aff",
+      "type": "Loader",
+      "config": {
+        "name": "Loader",
+        "description": "Display loader message",
+        "type": "loader",
+        "text": "Just a moment... identifying the best approach to assist you."
+      },
+      "transitions": [
+        {
+          "_id": "c74a4ad5-7913-43be-9286-c0cd6bc35aff-4204271d-a20a-4f9d-a912-7cb8dca67045",
+          "name": "Default",
+          "nextTask": "4204271d-a20a-4f9d-a912-7cb8dca67045"
+        }
+      ]
+    },
+    {
+      "_id": "4204271d-a20a-4f9d-a912-7cb8dca67045",
+      "type": "IntentClassification",
+      "config": {
+        "name": "Intent Classification",
+        "description": "Classify the intent of the user message",
+        "modelId": "4cf651d9-edf3-455f-a22e-53cc67fcc07b",
+        "intents": [
+          {
+            "name": "Simulate Tax Scenarios",
+            "description": "Projects the tax outcomes of different investment strategies to help investors make informed decisions.",
+            "examples": [
+              "What are the tax implications if I sell my stocks now?",
+              "Can you simulate the tax outcome of buying more bonds?",
+              "How will my taxes change if I adjust my portfolio allocation?"
+            ]
+          }
+        ],
+        "query": "$agent.query"
+      },
+      "transitions": [
+        {
+          "_id": "4204271d-a20a-4f9d-a912-7cb8dca67045-f8131fe1-26e0-49c8-9c0e-dc15696d2d8a",
+          "name": "If Intent is Matched",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$output.intentMatched",
+              "value": "true"
+            }
+          ],
+          "nextTask": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a"
+        },
+        {
+          "_id": "4204271d-a20a-4f9d-a912-7cb8dca67045-1a58a935-9693-4ade-847d-b2a9a8f3b741",
+          "name": "If No Intent is Matched",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$output.intentMatched",
+              "value": "false"
+            }
+          ],
+          "nextTask": "1a58a935-9693-4ade-847d-b2a9a8f3b741"
+        }
+      ]
+    },
+    {
+      "_id": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a",
+      "type": "JSFunction",
+      "config": {
+        "name": "JS Function",
+        "description": "Execute JS function",
+        "code": "\nconst main = () => {\n    const currentExecutionId = _id;\n    const intents = agent?.icIntents?.[currentExecutionId] || input.intents;\n    const currentIndex = agent?.icLoopIndexes?.[currentExecutionId] || 0;\n    const currentIntent = intents[currentIndex] || {};\n    const { intent, task } = currentIntent;\n    const state = currentIndex === intents.length ? 'end' : 'continue'\n    const icLoopIndexes = { ...(agent?.icLoopIndexes || {}), [_id]: state === 'end' ? undefined : currentIndex + 1 };\n    const icIntents = { ...(agent?.icIntents || {}), [_id]: state === 'end' ? undefined : intents };\n    return { ...input, intent, state: currentIndex === intents.length ? 'end' : 'continue', icLoopIndexes, icIntents, query: task };\n};\n\nmain()\n"
+      },
+      "globalVariables": [
+        {
+          "referencePath": "$output.icLoopIndexes",
+          "name": "icLoopIndexes"
+        },
+        {
+          "referencePath": "$output.icIntents",
+          "name": "icIntents"
+        }
+      ],
+      "transitions": [
+        {
+          "_id": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a-0d60d4c2-ce24-47b4-adbc-0984f72ea63c",
+          "name": "If Intent is Matched",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$output.intent",
+              "value": "Simulate Tax Scenarios"
+            }
+          ],
+          "nextTask": "0d60d4c2-ce24-47b4-adbc-0984f72ea63c"
+        },
+        {
+          "_id": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a-2d7a92ef-bba3-414d-a52d-ea330aaef1f9",
+          "name": "If Self Loop",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$agent.selfLoopMiniAgent",
+              "value": "true"
+            },
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$output.state",
+              "value": "end"
+            }
+          ],
+          "nextTask": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9"
+        }
+      ]
+    },
+    {
+      "_id": "0d60d4c2-ce24-47b4-adbc-0984f72ea63c",
+      "type": "Workflow",
+      "config": {
+        "name": "Intent - Simulate Tax Scenarios",
+        "description": "Workflow for intent - Simulate Tax Scenarios",
+        "workflowId": "4fbca8ea-3a7a-45e1-b630-f1b5b8624c1a"
+      },
+      "transitions": [
+        {
+          "_id": "0d60d4c2-ce24-47b4-adbc-0984f72ea63c-f8131fe1-26e0-49c8-9c0e-dc15696d2d8a",
+          "name": "Mini agent execution completed",
+          "nextTask": "f8131fe1-26e0-49c8-9c0e-dc15696d2d8a"
+        }
+      ]
+    },
+    {
+      "_id": "1a58a935-9693-4ade-847d-b2a9a8f3b741",
+      "transitions": [
+        {
+          "_id": "1a58a935-9693-4ade-847d-b2a9a8f3b741-2d7a92ef-bba3-414d-a52d-ea330aaef1f9",
+          "name": "If Self Loop",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$agent.selfLoopMiniAgent",
+              "value": "true"
+            }
+          ],
+          "nextTask": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9"
+        }
+      ],
+      "type": "Output",
+      "config": {
+        "name": "Output",
+        "description": "Output the response to the user",
+        "type": "external",
+        "text": "Unable to complete task $agent.query"
+      }
+    },
+    {
+      "_id": "7bf44a05-955a-4e21-92af-ecfac5cd4ce8",
+      "transitions": [
+        {
+          "_id": "7bf44a05-955a-4e21-92af-ecfac5cd4ce8-2d7a92ef-bba3-414d-a52d-ea330aaef1f9",
+          "name": "If Self Loop",
+          "rules": [
+            {
+              "type": "string",
+              "operator": "equal",
+              "path": "$agent.selfLoopMiniAgent",
+              "value": "true"
+            }
+          ],
+          "nextTask": "2d7a92ef-bba3-414d-a52d-ea330aaef1f9"
+        }
+      ],
+      "type": "Display",
+      "config": {
+        "name": "Display",
+        "description": "Display the response to the user",
+        "type": "text",
+        "text": "$input.content"
+      }
+    }
+  ],
+  "type": "Conversational",
+  "version": "latest"
+}
