@@ -47,7 +47,7 @@ The **Scenario Simulation Subagent** is designed to help investors analyze diffe
 ## 🖼️ Images  
 
 ### 🔹 Scenario Simulation Workflow  
-![Scenario Simulation Workflow](assets/img 6.jpg)  
+![Scenario Simulation Workflow](assets/img6.jpg)  
 
 ### 🔹 Scenario Analysis Overview  
 ![Scenario Analysis Overview](assets/img7.jpg)  
